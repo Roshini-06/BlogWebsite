@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block title %} Post Deleted{% endblock %}
+
+{% block content %}
+<div class="card p-4 text-center">
+    <h2>✅ Post Deleted Successfully!</h2>
+    <p class="mt-3">Your post has been deleted from the blog.</p>
+    <a href="{% url 'home' %}" class="btn btn-magic mt-3">🏠 Return to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!-- blog/templates/registration/login.html -->
+
+{% extends "blog/base.html" %}
+{% block title %}🔐 Login{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">🔐 Login to Your Account</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="id_username">👤 Username</label>
+                <input type="text" name="username" class="form-control" required id="id_username">
+            </div>
+            <div class="form-group mb-3">
+                <label for="id_password">🔒 Password</label>
+                <input type="password" name="password" class="form-control" required id="id_password">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">🚀 Login</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'register' %}">👤 Don't have an account? Register</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

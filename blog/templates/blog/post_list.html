@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% block title %} Your's Posts{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"> Latest Articles</h2>
+
+<!-- 🔍 Search Bar -->
+<form method="GET" class="mb-4">
+    <input type="text" name="q" class="form-control form-control-sm" placeholder="🔍 Search posts..." value="{{ request.GET.q }}">
+</form>
+
+<!-- 🧾 Post Cards -->
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in posts %}
+        <div class="col">
+            <div class="card shadow-sm h-100 d-flex flex-column justify-content-between p-3">
+                <div>
+                    <h5 class="card-title"> <span style="color:#080808">{{ post.title }}</span></h5>
+                    <p class="text-muted mb-2">📅 {{ post.created_at|date:"F d, Y" }} | 👤 {{ post.author }}</p>
+
+                    <div class="card-text" style="max-height: 100px; overflow: hidden;">
+                        {{ post.content|truncatechars_html:150|safe }}
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary w-100" style="border-radius: 25px;"> Read More</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p> No blog posts yet. Sprinkle your imagination and start writing! </p>
+    {% endfor %}
+</div>
+{% endblock %}

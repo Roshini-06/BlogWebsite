@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+{% block title %}🔮 {{ post.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+<p class="text-light">📅 {{ post.created_at }} | 👤 {{ post.author }}</p>
+<p>{{ post.content|safe }}</p> 
+
+<hr>
+<h4>💬 Comments</h4>
+{% for comment in comments %}
+    <div class="border p-2 mb-2 rounded text-light">
+        <strong>{{ comment.author }}</strong>: {{ comment.body }}
+    </div>
+{% empty %}
+    <p> No comments yet. Be the first to sparkle! </p>
+{% endfor %}
+
+<h5 class="mt-4">➕ Add a comment</h5>
+<form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit" class="btn btn-magic mb-3"> Post Comment</button>
+</form>
+
+{% if user == post.author %}
+    <div class="d-flex gap-2 mt-2">
+        <a href="{% url 'post_edit' post.pk %}" class="btn btn-sm text-white" style="background: linear-gradient(to right, #00c6ff, #0072ff);">
+            ✏️ Edit
+        </a>
+        <form action="{% url 'post_delete' post.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm text-white" style="background: linear-gradient(to right, #ff416c, #ff4b2b);">
+                🗑️ Delete
+            </button>
+        </form>
+    </div>
+{% endif %}
+
+{% endblock %}
