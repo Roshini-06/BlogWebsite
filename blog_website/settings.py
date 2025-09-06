@@ -4,10 +4,10 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'your-secret-key'
-DEBUG = False
-ALLOWED_HOSTS = ["blogwebsite.onrender.com", "localhost"]
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
+ALLOWED_HOSTS = ["blogwebsite.onrender.com", "localhost"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
